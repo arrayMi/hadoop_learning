@@ -5,6 +5,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.hadoop.yarn.api.records.ApplicationId;
 import org.apache.hadoop.yarn.api.records.impl.pb.ApplicationIdPBImpl;
 import org.apache.hadoop.yarn.logaggregation.LogCLIHelpers;
+import org.apache.hadoop.yarn.util.ConverterUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,6 +44,10 @@ public class TestHadoop27Log {
                 "container_1586654872264_0001_01_000001",
                 "master:42139",
                 "root", printStream);
+    }
 
+    @Test
+    public void testConvertAppId() {
+        System.out.println(ConverterUtils.toApplicationId("application_1586866201216_0001").toString());
     }
 }

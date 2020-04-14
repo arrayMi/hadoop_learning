@@ -5,11 +5,7 @@ import org.apache.hadoop.fs.FileContext;
 import org.apache.hadoop.fs.FileStatus;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.fs.RemoteIterator;
-import org.apache.hadoop.yarn.api.records.ApplicationReport;
-import org.apache.hadoop.yarn.client.api.YarnClient;
-import org.apache.hadoop.yarn.client.api.impl.YarnClientImpl;
 import org.apache.hadoop.yarn.conf.YarnConfiguration;
-import org.apache.hadoop.yarn.exceptions.YarnException;
 import org.apache.hadoop.yarn.logaggregation.AggregatedLogFormat;
 import org.apache.hadoop.yarn.logaggregation.LogAggregationUtils;
 import org.apache.hadoop.yarn.logaggregation.LogCLIHelpers;
@@ -17,8 +13,11 @@ import org.apache.hadoop.yarn.util.ConverterUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
-import java.util.List;
+import java.io.DataInputStream;
+import java.io.EOFException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintStream;
 
 public class Hadoop27Log {
     private static Configuration yarnConfiguration;
@@ -28,20 +27,9 @@ public class Hadoop27Log {
     static {
         yarnConfiguration = new YarnConfiguration();
 
-        yarnConfiguration.addResource("E:\\openSource\\hadoop_learning\\src\\main\\resources\\core-site.xml");
-        yarnConfiguration.addResource("E:\\openSource\\hadoop_learning\\src\\main\\resources\\hdfs-site.xml");
-        yarnConfiguration.addResource("E:\\openSource\\hadoop_learning\\src\\main\\resources\\yarn-site.xml");
-
-        /*yarnConfiguration.set(YarnConfiguration.RM_ADDRESS, "192.168.2.177:8032");
-        yarnConfiguration.set(YarnConfiguration.RM_HOSTNAME, "192.168.2.177");
-        yarnConfiguration.set(YarnConfiguration.RM_SCHEDULER_ADDRESS, "192.168.2.177:8030");
-        yarnConfiguration.set(YarnConfiguration.RM_RESOURCE_TRACKER_ADDRESS, "192.168.2.177:8031");
-        yarnConfiguration.set(YarnConfiguration.RM_WEBAPP_ADDRESS, "192.168.2.177:8088");
-        yarnConfiguration.setBoolean(YarnConfiguration.YARN_MINICLUSTER_FIXED_PORTS, true);*/
-
-        /*YarnClient yarnClient = new YarnClientImpl();
-        yarnClient.init(yarnConfiguration);
-        yarnClient.start();*/
+        yarnConfiguration.addResource("core-site.xml");
+        yarnConfiguration.addResource("hdfs-site.xml");
+        yarnConfiguration.addResource("yarn-site.xml");
         logCLIHelpers = new LogCLIHelpers();
         logCLIHelpers.setConf(yarnConfiguration);
     }
