@@ -30,6 +30,9 @@ public class HadoopLogUtils {
     private static LogCLIHelpers logCLIHelpers;
     private static final Logger LOGGER = LoggerFactory.getLogger(HadoopLogUtils.class);
 
+    /**
+     * 初始化配置
+     */
     static {
         yarnConfiguration = new YarnConfiguration();
 
